@@ -20,6 +20,15 @@ Feedback::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  config.paperclip_defaults = {
+  :storage => :s3,
+  :s3_credentials => {
+    :bucket => ENV['AWS_BUCKET'],
+    :access_key_id => ENV['AKIAI27AYIWX746JAQIA'],
+    :secret_access_key => ENV['lCDiefopiWAVRrt593PY6MpjfUai6UZ2g++EhCuJ']
+  }
+}
+
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 

@@ -1,0 +1,14 @@
+<%= form_for([@project, @version]) do |f| %>
+  <%= f.label :version_number %>
+  <%= f.text_field :version_number %>
+
+  <%= f.label :context %>
+  <%= f.text_field :context %>
+
+  <%= f.label :version_file %>
+  <%= f.file_field :version_file %>
+
+  <%= f.hidden_field :project_id %>
+
+  <%= f.submit "Submit" %>
+<% end %>

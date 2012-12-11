@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121211021704) do
+ActiveRecord::Schema.define(:version => 20121211030547) do
 
   create_table "projects", :force => true do |t|
     t.string   "title"
@@ -19,6 +19,18 @@ ActiveRecord::Schema.define(:version => 20121211021704) do
     t.string   "description"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "versions", :force => true do |t|
+    t.integer  "version_number"
+    t.text     "context"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.string   "version_file_file_name"
+    t.string   "version_file_content_type"
+    t.integer  "version_file_file_size"
+    t.datetime "version_file_updated_at"
+    t.integer  "project_id"
   end
 
 end

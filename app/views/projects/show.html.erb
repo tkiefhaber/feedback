@@ -1,2 +1,11 @@
 <h1><%= @project.title %></h1>
 <h4><%= @project.description %></h4>
+
+<h3><%= link_to "new version", new_project_version_path(@project) %></h3><br/>
+
+<% @versions.each do |version| %>
+  <h2>Version: <%= version.version_number %></h2><br/>
+  <h2>Context: <%= version.context %><br/></h2><br/>
+
+  <%= video_tag( version.version_file.url, :controls => true, :autobuffer => true, :height => '360', :width => '640') %>
+<% end %>
