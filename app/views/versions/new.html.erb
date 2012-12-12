@@ -1,4 +1,4 @@
-<%= form_for([@project, @version]) do |f| %>
+<%= form_for([@project, @version], :html => {:class => "form-horizontal"}) do |f| %>
   <%= f.label :version_number %>
   <%= f.text_field :version_number %>
 
@@ -8,7 +8,7 @@
   <%= f.label :version_file %>
   <%= f.file_field :version_file %>
 
-  <%= f.hidden_field :project_id %>
+  <%= f.hidden_field :project_id %><br/>
 
-  <%= f.submit "Submit" %>
+  <%= f.submit "Submit", :class => "btn btn-primary" %>
 <% end %>

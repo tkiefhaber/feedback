@@ -2,10 +2,11 @@
 <h4><%= @project.description %></h4>
 
 <h3><%= link_to "new version", new_project_version_path(@project) %></h3><br/>
-
 <% @versions.each do |version| %>
-  <h2>Version: <%= version.version_number %></h2><br/>
-  <h2>Context: <%= version.context %><br/></h2><br/>
+  <h2>Version: <%= version.version_number %></h2>
+  <h3>Context: <%= version.context %><br/></h3><br/>
 
-  <%= video_tag( version.version_file.url, :controls => true, :autobuffer => true, :height => '360', :width => '640') %>
+  <video id="version_<%= version.version_number %>" width="720" height="405" controls="control" preload="auto">
+    <source src="<%= version.version_file.url %>" type="video/mp4" />
+  </video>
 <% end %>
