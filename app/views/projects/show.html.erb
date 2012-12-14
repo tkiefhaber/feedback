@@ -1,12 +1,21 @@
 <h1><%= @project.title %></h1>
-<h4><%= @project.description %></h4>
+<h4><%= @project.description %></h4><br/>
 
-<h3><%= link_to "new version", new_project_version_path(@project) %></h3><br/>
+<%= link_to "new version", new_project_version_path(@project), :class => "btn btn-success" %><%= link_to "Home", projects_path, :class => "btn btn-notice" %><br/><br/>
+
 <% @versions.each do |version| %>
-  <h2>Version: <%= version.version_number %></h2>
-  <h3>Context: <%= version.context %><br/></h3><br/>
+  <div class="well well-small">
+    <h2>Version: <%= version.version_number %></h2>
+    <h3>Context: <%= version.context %></h3>
 
-  <video id="version_<%= version.version_number %>" width="720" height="405" controls="control" preload="auto">
-    <source src="<%= version.version_file.url %>" type="video/mp4" />
-  </video>
+    <video id="version_<%= version.version_number %>" width="720" height="405" controls="control" preload="auto">
+      <source src="<%= version.version_file.url %>" type="video/mp4" />
+    </video><br/>
+
+    <%= link_to "Add Note", new_project_version_note_path(@project, version), :class => 'btn btn-info' %><br/><br/>
+
+    <% version.notes.each do |note| %>
+      <h3><%= note.content %></h3><br/>
+    <% end %>
+  </div>
 <% end %>

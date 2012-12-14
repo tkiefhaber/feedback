@@ -8,7 +8,6 @@ class VersionsController < ApplicationController
   end
 
   def new
-
     @project = Project.find params[:project_id]
     @version = Version.new
   end
