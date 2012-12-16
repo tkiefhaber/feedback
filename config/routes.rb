@@ -12,7 +12,9 @@ Feedback::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
     resources :projects do
-      resources :versions
+      resources :versions do
+        resources :notes
+      end
     end
 
   # Sample resource route with options:
