@@ -21,4 +21,12 @@ class VersionsController < ApplicationController
       render :action => 'new'
     end
   end
+
+  def destroy
+    @project = Project.find params[:project_id]
+    @version = @project.versions.find params[:id]
+    @version.destroy
+    flash[:success] = "Version has been deleted"
+    redirect_to @project
+  end
 end

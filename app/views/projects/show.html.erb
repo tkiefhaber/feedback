@@ -6,7 +6,8 @@
 <%= link_to "new version", new_project_version_path(@project), :class => "btn btn-success" %><%= link_to "Home", projects_path, :class => "btn btn-notice" %><br/><br/>
 
 <% @versions.each do |version| %>
-  <div class="well well-small">
+<div class="row">
+  <div class="well well-small span3">
     <h2><%= link_to "Version #{version.version_number}", "#video#{version.version_number}", :class => "sublime" %></h2>
     <h3>Context: <%= version.context %></h3>
 
@@ -14,10 +15,25 @@
       <source src="<%= version.version_file.url %>" />
     </video><br/>
 
-    <%= link_to "Add Note", new_project_version_note_path(@project, version), :class => 'btn btn-info' %><br/><br/>
-
-    <% version.notes.each do |note| %>
-      <h3><%= note.content %></h3><br/>
-    <% end %>
+    <%= link_to 'Delete Version', project_version_path(@project, version),
+            :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-danger btn-mini" %><br/><br/>
   </div>
+  <div class="well well-small span9">
+    <%= link_to "Add Note", new_project_version_note_path(@project, version), :class => 'btn btn-info' %><br/><br/>
+    <ol>
+      <% version.notes.each do |note| %>
+        <li><h3><%= note.content %>
+            <% if note.addressed? %>
+              <h4>Completed</h4>
+            <% else %>
+              <%= form_for [@project, version, note] do |f| %>
+                <%= f.hidden_field :addressed, :value => true %>
+                <%= f.submit "did it" %>
+              <% end %>
+            <% end %>
+          </h3></li>
+      <% end %>
+    </ol>
+  </div>
+</div>
 <% end %>

@@ -11,21 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214034734) do
+ActiveRecord::Schema.define(:version => 20121216045803) do
 
   create_table "notes", :force => true do |t|
     t.string   "content"
     t.integer  "version_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "addressed",  :default => false
   end
 
   create_table "projects", :force => true do |t|
     t.string   "title"
     t.string   "project_type"
     t.string   "description"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "approved",     :default => false
   end
 
   create_table "versions", :force => true do |t|
