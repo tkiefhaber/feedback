@@ -1,3 +1,5 @@
+<script type="text/javascript" src="//cdn.sublimevideo.net/js/om39brwo-beta.js"></script>
+
 <h1><%= @project.title %></h1>
 <h4><%= @project.description %></h4><br/>
 
@@ -5,11 +7,11 @@
 
 <% @versions.each do |version| %>
   <div class="well well-small">
-    <h2>Version: <%= version.version_number %></h2>
+    <h2><%= link_to "Version #{version.version_number}", "#video#{version.version_number}", :class => "sublime" %></h2>
     <h3>Context: <%= version.context %></h3>
 
-    <video id="version_<%= version.version_number %>" width="720" height="405" controls="control" preload="auto">
-      <source src="<%= version.version_file.url %>" type="video/mp4" />
+    <video id="video<%= version.version_number %>" width="720" height="405" data-uid="project_<%= @project.id %>_version_<%= version.id %>" data-name="project_<%= @project.id %>_version_<%= version.id %>" style="display:none" preload="none">
+      <source src="<%= version.version_file.url %>" />
     </video><br/>
 
     <%= link_to "Add Note", new_project_version_note_path(@project, version), :class => 'btn btn-info' %><br/><br/>

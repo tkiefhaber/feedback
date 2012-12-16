@@ -4,9 +4,8 @@
 
   <%= f.label :content %>
   <%= f.text_field :content %>
-
-  <%= f.hidden_field :version_id %><br/><br/>
+  <%= f.hidden_field :version_id, :value => @version.id %>
 
   <%= f.submit "Submit", :class => "btn btn-primary" %><br/>
-  <%= link_to 'Cancel', project_path(@version.project_id) %>
+  <%= link_to 'Cancel', project_path(@project) %>
 <% end %>
