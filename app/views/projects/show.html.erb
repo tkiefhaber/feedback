@@ -1,0 +1,44 @@
+<script type="text/javascript" src="//cdn.sublimevideo.net/js/om39brwo-beta.js"></script>
+
+<h1><%= @project.title %></h1>
+<h4><%= @project.description %></h4><br/>
+
+<%= link_to "new version", new_project_version_path(@project), :class => "btn btn-success" %><%= link_to "Home", projects_path, :class => "btn btn-notice" %><br/><br/>
+
+<% @versions.each do |version| %>
+<div class="row well well-small span12">
+  <div class="span3">
+    <h2><%= link_to "Version #{version.version_number}", "#video#{version.version_number}", :class => "sublime" %></h2>
+    <h3>Context: <%= version.context %></h3>
+
+    <video id="video<%= version.version_number %>" width="720" height="405" data-uid="project_<%= @project.id %>_version_<%= version.id %>" data-name="project_<%= @project.id %>_version_<%= version.id %>" style="display:none" preload="none">
+      <source src="<%= version.version_file.url %>" />
+    </video><br/>
+
+    <%= form_for [@project, version] do |f| %>
+      <%= f.hidden_field :final_version, :value => true %>
+      <%= f.submit "Approve This Monkey!", :class => "btn btn-success btn-mini"%>
+    <% end %>
+
+    <%= link_to 'Delete Version', project_version_path(@project, version),
+            :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-danger btn-mini" %><br/><br/>
+  </div>
+  <div class="span8">
+    <%= link_to "Add Note", new_project_version_note_path(@project, version), :class => 'btn btn-info' %><br/><br/>
+    <ol>
+      <% version.notes.each do |note| %>
+        <li><h3><%= note.content %>
+            <% if note.addressed? %>
+              <h4>Completed</h4>
+            <% else %>
+              <%= form_for [@project, version, note] do |f| %>
+                <%= f.hidden_field :addressed, :value => true %>
+                <%= f.submit "did it" %>
+              <% end %>
+            <% end %>
+          </h3></li>
+      <% end %>
+    </ol>
+  </div>
+</div>
+<% end %>
