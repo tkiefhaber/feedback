@@ -6,8 +6,8 @@
 <%= link_to "new version", new_project_version_path(@project), :class => "btn btn-success" %><%= link_to "Home", projects_path, :class => "btn btn-notice" %><br/><br/>
 
 <% @versions.each do |version| %>
-<div class="row">
-  <div class="well well-small span3">
+<div class="row well well-small span12">
+  <div class="span3">
     <h2><%= link_to "Version #{version.version_number}", "#video#{version.version_number}", :class => "sublime" %></h2>
     <h3>Context: <%= version.context %></h3>
 
@@ -15,10 +15,15 @@
       <source src="<%= version.version_file.url %>" />
     </video><br/>
 
+    <%= form_for [@project, version] do |f| %>
+      <%= f.hidden_field :final_version, :value => true %>
+      <%= f.submit "Approve This Monkey!", :class => "btn btn-success btn-mini"%>
+    <% end %>
+
     <%= link_to 'Delete Version', project_version_path(@project, version),
             :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-danger btn-mini" %><br/><br/>
   </div>
-  <div class="well well-small span9">
+  <div class="span8">
     <%= link_to "Add Note", new_project_version_note_path(@project, version), :class => 'btn btn-info' %><br/><br/>
     <ol>
       <% version.notes.each do |note| %>

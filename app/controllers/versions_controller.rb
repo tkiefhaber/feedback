@@ -1,6 +1,9 @@
 class VersionsController < ApplicationController
+  before_filter :authenticate_user!
+
   def index
-    @versions = Version.all
+    @project = Project.find params[:id]
+    @versions = @project.versions.all
   end
 
   def show
@@ -19,6 +22,18 @@ class VersionsController < ApplicationController
       redirect_to @project
     else
       render :action => 'new'
+    end
+  end
+
+  def update
+    @project = Project.find params[:project_id]
+    @version = Version.find params[:id]
+    if @version.update_attributes params[:version]
+      flash[:success] = "nice work!"
+      redirect_to project_path(@project)
+    else
+      flash[:warning] = "this didn't update"
+      render project_path(@project)
     end
   end
 
