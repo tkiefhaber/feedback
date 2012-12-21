@@ -12,10 +12,12 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
+    @project.permissions.build
   end
 
   def create
     @project = Project.new params[:project]
+    @project.permissions.build
     if @project.save
       redirect_to @project
     else

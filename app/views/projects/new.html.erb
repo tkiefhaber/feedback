@@ -9,6 +9,13 @@
   <%= f.label :project_type %>
   <%= f.select :project_type, options_for_select(["Promo"]) %><br/><br/>
 
+  <%= f.fields_for :permissions do |permission| %>
+    <%= permission.label "Who can approve?" %>
+    <%= permission.text_field :user_id %>
+
+    <%= permission.hidden_field :permission_title, :value => "approver" %>
+  <% end %>
+
   <%= f.submit "Submit", :class => "btn btn-primary" %><br/>
   <%= link_to "Cancel", projects_path %>
 <% end %>
