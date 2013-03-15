@@ -17,8 +17,8 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new params[:project]
-    @project.permissions.build
     if @project.save
+      @project.permissions.create
       redirect_to @project
     else
       render :action => 'new'
